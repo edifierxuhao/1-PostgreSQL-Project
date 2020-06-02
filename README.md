@@ -8,7 +8,8 @@ and write an ETL pipeline that transfers data from files in two local directorie
 
 ## 2. Database Schema
 In this project, I define fact and dimension tables for a star schema for a particular analytic focus. The tables are:
-1. songplays(Fact table, record every user action, 9 columns) 
+
+1. songplays(**Fact table**, record every user action, 9 columns) 
     - songplay_id (the primary key, and is serial data type)
     - start_time (a timestamp, use bigint data type)
     - user_id (int)
@@ -18,29 +19,37 @@ In this project, I define fact and dimension tables for a star schema for a part
     - session_id (int)
     - location (the address, varchar)
     - user_agent (the browser, varchar)
-   
-2. users(Dimension table,contain user information, has 5 columns)
+    
+![songplays table](screenshot/songplays.png)  
+
+2. users(*Dimension table*,contain user information, has 5 columns)
     - user_id (int)
     - first_name (varchar)
     - last_name (varchar)
     - gender (two choice,'M' or 'F', char(1))
     - level (two choice, 'free' and 'paid', char(4))
     
-3. songs(Dimension table,contain song information, has 5 columns)
+![users table](screenshot/users.png)       
+
+3. songs(*Dimension table*,contain song information, has 5 columns)
     - song_id (varchar)
     - title (varchar)
     - artist_id (varchar)
     - year (int)
     - duration (in seconds, numeric)
     
-4. artists(Dimension table,contain artists information, has 5 columns)
+![songs table](screenshot/songs.png)       
+
+4. artists(*Dimension table*,contain artists information, has 5 columns)
     - artist_id (varchar)
     - name (varchar)
     - location (varchar)
     - latitude (numeric)
     - longitude (numeric)
     
-5. time(Dimension table,contain time information, has 7 columns)
+![artists table](screenshot/artists.png)    
+
+5. time(*Dimension table*,contain time information, has 7 columns)
     - start_time (timestamp, bigint)
     - hour (int)
     - day (int)
@@ -49,6 +58,8 @@ In this project, I define fact and dimension tables for a star schema for a part
     - year (int)
     - weekday (int)
     
+![time table](screenshot/time.png)     
+
 ## 3. ETL pipeline
 1. Extract
 I extract all necessary information from json files in two folders using pandas.
@@ -74,3 +85,5 @@ level 	count
  We can see there are more free users than paid users
  
 For there are not enough data, I will make further analysis in pyspark section. including using window and lambda functions.
+
+Contract: <edifierxuhao123@gmail.com>

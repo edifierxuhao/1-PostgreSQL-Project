@@ -6,6 +6,16 @@ from sql_queries import *
 
 
 def process_song_file(cur, filepath):
+    '''
+    This procedure processes a song file whose filepath has been provided as an arugment.
+    It extracts the song information in order to store it into the songs table.
+    Then it extracts the artist information in order to store it into the artists table.
+
+    INPUTS:
+    * cur the cursor variable
+    * filepath the file path to the song file
+    '''
+
     # open song file
     df = pd.read_json(filepath,lines=True)
 
@@ -19,6 +29,18 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
+    '''
+    This procedure processes a log file whose filepath has been provided as an arugment.
+    It extracts the timestamp information with the day, week,month,year, weekday 
+    information in order to store into the songs table.
+    Then it extracts the user information in order to store it into the artists table.
+    At last, it extracts the songplay information in order to store into the songplays
+    table.
+
+    INPUTS:
+    * cur the cursor variable
+    * filepath the file path to the log file
+    '''
     # open log file
     df = pd.read_json(filepath,lines=True)
 
@@ -63,6 +85,16 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
+    '''
+    This procedure processes get all files under the filepath, and excute the function.
+    And commit after each func running.
+
+    INPUTS:
+    * cur the cursor variable
+    * conn the connection variable
+    * filepath the file path to the file root directory
+    * func process_song_file or process_log_file defined above
+    '''
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
@@ -82,6 +114,9 @@ def process_data(cur, conn, filepath, func):
 
 
 def main():
+    '''
+    The main function to buld a connection, and pull the data to database
+    '''
     conn = psycopg2.connect("host=127.0.0.1 dbname=sparkifydb user=student password=student")
     cur = conn.cursor()
 

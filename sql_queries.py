@@ -22,7 +22,7 @@ songplay_table_create = ("""
 """)
 
 user_table_create = ("""
-        CREATE table IF NOT EXISTS users(user_id int ,
+        CREATE table IF NOT EXISTS users(user_id int NOT NULL UNIQUE,
                                        first_name varchar,
                                        last_name varchar,
                                        gender char(1) CHECK (gender IN ('M','F')),
@@ -31,7 +31,7 @@ user_table_create = ("""
 """)
 
 song_table_create = ("""
-        CREATE table IF NOT EXISTS songs(song_id varchar ,
+        CREATE table IF NOT EXISTS songs(song_id varchar NOT NULL UNIQUE,
                                         title varchar,
                                         artist_id varchar,
                                         year int,
@@ -40,7 +40,7 @@ song_table_create = ("""
 """)
 
 artist_table_create = ("""
-        CREATE table IF NOT EXISTS artists(artist_id varchar ,
+        CREATE table IF NOT EXISTS artists(artist_id varchar NOT NULL UNIQUE,
                                         name varchar,
                                         location varchar,
                                         latitude numeric,
@@ -69,17 +69,24 @@ songplay_table_insert = ("""
 
 user_table_insert = ("""
         INSERT INTO users (user_id,first_name,last_name,gender,level)
-        VALUES (%s,%s,%s,%s,%s)        
+        VALUES (%s,%s,%s,%s,%s) 
+        ON CONFLICT(user_id) 
+        DO UPDATE 
+        SET level = EXCLUDED.level
 """)
 
 song_table_insert = ("""
         INSERT INTO songs (song_id,title,artist_id,year,duration)
-        VALUES (%s,%s,%s,%s,%s)        
+        VALUES (%s,%s,%s,%s,%s)
+        ON CONFLICT(song_id) 
+        DO NOTHING
 """)
 
 artist_table_insert = ("""
         INSERT INTO artists (artist_id,name,location,latitude,longitude)
         VALUES (%s,%s,%s,%s,%s)        
+        ON CONFLICT(artist_id) 
+        DO NOTHING
 """)
 
 
