@@ -117,7 +117,7 @@ def main():
     '''
     The main function to buld a connection, and pull the data to database
     '''
-    conn = psycopg2.connect("host=127.0.0.1 dbname=sparkifydb user=student password=student")
+    conn = psycopg2.connect("host=localhost dbname=mydb user=edifierxuhao password=****")
     cur = conn.cursor()
 
     process_data(cur, conn, filepath='data/song_data', func=process_song_file)
